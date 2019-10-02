@@ -1,39 +1,31 @@
 <html>
   <head>
-    <title>First Flask App</title>
+    <title>MBA Finder</title>
     <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
   </head>
   <body>
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-3">My Awesome Capstone Project</h1>
+        <h1 class="display-3">MBA FINDER</h1>
         <p>
           Current time: {{time_info}}
         </p>
         <p>
-          Some cool content will go here
+          Thinking aboout applying to business schools? 
+          Upload your Linkedin profile and get recommendations!
         </p>
         <p>
-          <form action="/get_results" method="post">
-            Input a number: <input type="text" name="number">
+          <form action="/review" method="post" enctype = "multipart/form-data">
+             Upload Linkedin Profile (PDF) <input type="file" name="linkedin_pdf">
             <br>
-            User: <select name="user">
-              <option value="2206066431492096327">Nicole Andrews</option>
-              <option value="2200417693859840681">Christy Faw</option>
-              <option value="2373608382922752189">Vladan Stankovic</option>
-              <option value="1670504276557824171">Elizabeth Giordano</option>
-            </select>
             <br>
-            LinkedIn URL: <input type="url" name="linkedin_url">
+            LinkedIn URL:(Work in Progress) <input type="url" name="linkedin_url">
             <br>
-            Restaurant: 
-            <select name="restaurant">
-              {% for restaurant in restaurants %}
-                <option value="{{ restaurant }}">{{ restaurant }}</option>
-              {% endfor %}
-            </select>
             <br>
-            <input type="submit" class="btn btn-primary btn-lg" value="A button">
+            You can view your profile information before submitting on the next page.
+            <br>
+            <br>
+            <input type="submit" class="btn btn-primary btn-lg" value="NEXT">
           </form>
         </p>
       </div>
