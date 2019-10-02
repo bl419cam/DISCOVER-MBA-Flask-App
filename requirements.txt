@@ -13,7 +13,6 @@ libedit=3.1.20181209=hb402a30_0
 libffi=3.2.1=h475c297_4
 markupsafe=1.1.1=py37h1de35cc_0
 ncurses=6.1=h0a44026_1
-openssl=1.1.1=h1de35cc_0
 pip=19.2.2=py37_0
 python=3.7.4=h359304d_1
 readline=7.0=h1de35cc_5
