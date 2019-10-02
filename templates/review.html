@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Profile Review</title>
+    <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+          <form action="/results" method="post">
+        <h1 class="display-3">Profile Review</h1>
+        <p>
+          Please review information obtained from your Linkedin Profile.
+          <br>
+        </p>
+        <p>
+          <div class="container">
+              
+                <div class="row" id="name">
+                  <div class='col-sm'>
+                      <label>Name:</label>
+                  </div>
+                  <div class='col-sm'>
+                      <textarea name="name" rows="1" cols="80">
+                      </textarea>
+                  </div>
+                  <div class="col-sm">
+                  </div>
+              </div>
+              <br>
+              <div class="row" id="education">
+                    <div class='col-sm'>
+                        <label>Education:</label>
+                    </div>
+                    <div class='col-sm'>
+                        <textarea name="edu_hist" rows="3" cols="80">{{edu_hist}}
+                        </textarea>
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+                <br>
+                <div class="row" id="experience">
+                    <div class='col-sm'>
+                        <label>Experience:</label>
+                    </div>
+                    <div class='col-sm'>
+                        <textarea name="exp_hist" rows="20" cols="80">{{exp_hist}}
+                        </textarea>
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+              
+        <br>
+        <a href="/">GO BACK</a>
+        <input type="submit" class="btn btn-primary btn-lg" value="CONFIRM">
+        </div>
+        </p>
+      </div>
+    </form>
+    </div>
+  </body>
+</html>
