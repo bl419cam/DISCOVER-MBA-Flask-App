@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>First Flask App Results</title>
+    <title>Recommendations</title>
     <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
 </head>
 <body>
-    {% if answer == True %}
-        For user {{user_id}}, we predict that they should make a transaction
-    {% else %}
-        For user {{user_id}}, we predict that they should not make a transaction
-    {% endif %}
-    <br>
-
-    <a href="/">Go back home</a>
+    <div class="jumbotron">
+        <div class="container">
+                <h2 class="display-4">Business School Recommendations</h2>
+                <br>
+                    <ul>
+                        {% for rec in reccos %}
+                          <li>{{ rec }}</li>
+                        {% endfor %}  
+                    </ul>
+                <br>
+                <br>
+            <a href="/">Go back home</a>
+        </div>
+    </div>
 </body>
 </html>
