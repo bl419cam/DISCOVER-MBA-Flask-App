@@ -1,63 +1,40 @@
 <html>
   <head>
     <title>Profile Review</title>
-    <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" media="screen" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-    <div class="jumbotron">
-      <div class="container">
-          <form action="/results" method="post">
-        <h1 class="display-3">Profile Review</h1>
-        <p>
-          Please review information obtained from your Linkedin Profile.
-          <br>
-        </p>
-        <p>
-          <div class="container">
-              
-                <div class="row" id="name">
-                  <div class='col-sm'>
-                      <label>Name:</label>
-                  </div>
-                  <div class='col-sm'>
-                      <textarea name="name" rows="1" cols="80">
-                      </textarea>
-                  </div>
-                  <div class="col-sm">
-                  </div>
-              </div>
+      <div class="w3-top">
+          <div class="w3-bar w3-white w3-card" id="header_bar">
+              <h1 class="w3-xlarge w3-text-white w3-margin-left"><span class="w3-hide-small w3-text-black">DISCOVER</span>
+                  <span class="w3-padding w3-black w3-opacity-min"><b>MBA</b></span></h1>
+          </div>
+      </div>
+    <div class="w3-display-container w3-content w3" style="max-width:1500px;">
+      <img class="w3-image" style="opacity: 0.7" src="./static/blank_coffee.jpg" width="1500" height="800">
+      <div class="w3-twothird w3-display-middle w3-center" style="padding-top: 60px">
+          <h1>Profile Review</h1>
+            <p><b>Please review information obtained from your Linkedin Profile.</b>
+              </p>
+              <p class="w3-margin-top"><b>Click confirm at bottom of page to get school recommendations.</b>
               <br>
-              <div class="row" id="education">
-                    <div class='col-sm'>
-                        <label>Education:</label>
-                    </div>
-                    <div class='col-sm'>
-                        <textarea name="edu_hist" rows="3" cols="80">{{edu_hist}}
-                        </textarea>
-                    </div>
-                    <div class="col-sm">
-                    </div>
-                </div>
-                <br>
-                <div class="row" id="experience">
-                    <div class='col-sm'>
-                        <label>Experience:</label>
-                    </div>
-                    <div class='col-sm'>
-                        <textarea name="exp_hist" rows="20" cols="80">{{exp_hist}}
-                        </textarea>
-                    </div>
-                    <div class="col-sm">
-                    </div>
-                </div>
-              
-        <br>
+            </p>  
+          <form action="/results" method="post">
+            <h3>Education</h3>
+            <textarea name="edu_hist" rows="6" cols="80">{{edu_hist}}
+            </textarea>
+            <br>
+            <h3>Experience</h3>
+            <textarea name="exp_hist" rows="20" cols="80">{{exp_hist}}
+            </textarea>
+            <br>
+            <br>
         <a href="/">GO BACK</a>
-        <input type="submit" class="btn btn-primary btn-lg" value="CONFIRM">
+        <input type="submit" class="w3-large btn btn-primary btn-lg" value="CONFIRM">
         </div>
         </p>
       </div>
     </form>
-    </div>
+    
   </body>
 </html>

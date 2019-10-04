@@ -2,22 +2,67 @@
 <html lang="en">
 <head>
     <title>Recommendations</title>
-    <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" media="screen" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <div class="jumbotron">
-        <div class="container">
-                <h2 class="display-4">Business School Recommendations</h2>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="header_bar">
+            <h1 class="w3-xlarge w3-text-white w3-margin-left"><span class="w3-hide-small w3-text-black">DISCOVER</span>
+                <span class="w3-padding w3-black w3-opacity-min"><b>MBA</b></span></h1>
+        </div>
+    </div>
+    <div class="w3-display-container w3-content" style="max-width:1500px;">
+        <div class="w3-twothird w3-display-middle w3-center" style="padding-top: 800px">
+                <h1>Business School Recommendations</h1>
+                
+                <p class="w3-large">Based on your profile DISCOVER MBA recommends the following schools
+                    for your considerations.
+            
+                </p>
+                <p>Schools are listed alphabetically</p>
                 <br>
-                    <ul>
-                        {% for rec in reccos %}
-                          <li>{{ rec }}</li>
-                        {% endfor %}  
+                <div class="card" id="load_results">
+                    <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading Indicator" 
+                         height="80" width="350" style="padding:20px">
+                </div>
+                    <ul id="rec_list">
+                    
                     </ul>
                 <br>
                 <br>
-            <a href="/">Go back home</a>
+            <a class="w3-large" href="/">Go BACK HOME</a>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log(`{{edu_hist}}`)
+            fetch("/make_recs", {
+                method: "Post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "edu_hist": `{{edu_hist}}`,
+                    "exp_hist": `{{exp_hist}}`
+                    })
+                })
+            .then(resp => resp.json())
+            .then(json => {
+                const load_gif = document.getElementById("load_results")
+                load_gif.remove()
+
+                console.log(json["recs"])
+                const recList = document.getElementById("rec_list")
+
+                for (const rec of json["recs"]){
+                    const list_item = document.createElement("li");
+                    list_item.innerText = rec;
+                    list_item.style["list-style"]="none"
+                    list_item.style["margin-bottom"] = "6px"
+                    recList.appendChild(list_item)
+                }
+            })
+        })
+    </script>
 </body>
 </html>

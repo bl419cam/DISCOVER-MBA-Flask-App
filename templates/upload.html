@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Intro and Upload</title>
+    <link rel="stylesheet" media="screen" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="header_bar">
+            <h1 class="w3-xlarge w3-text-white w3-margin-left"><span class="w3-hide-small w3-text-black">DISCOVER</span>
+                <span class="w3-padding w3-black w3-opacity-min"><b>MBA</b></span></h1>
+        </div>
+    </div>
+    <div class="w3-display-container w3-content w3" style="max-width:1500px;">
+    <img class="w3-image" style="opacity: 1" src="./static/tech_2.png" width="1500" height="800">
+    
+      <div class="w3-twothird w3-display-left w3-left" style="padding-left: 80px">
+          <p><br></p>
+        
+        <h2 class="w3-xxxlarge w3-text-white w3-margin-top"><i class="fa fa-cogs w3-xxxlarge"></i> About the Engine</h2>
+        <p class="w3-medium w3-text-white w3-margin-bottom">
+            Thinking about applying to business schools? Discover MBA will provide a list of schools
+            for you to consider by matching your LinkedIn profile to a database of professionals who
+            have attended business schools utilizing Natural Language Processing (NLP) technologies.
+            <br>
+            <br>
+            Please upload your LinkedIn Profile to get recommendations!
+        </p>
+        <h3 class="w3-xxlarge w3-text-white"><i class="fa fa-cloud-upload w3-xxlarge"></i> Profile Upload</h3>
+        <p>
+          <form class="w3-medium w3-text-white" action="/review" method="post" enctype = "multipart/form-data">
+              Upload LinkedIn Profile (PDF format)
+              <input type="file" name="linkedin_pdf">
+            <br>
+            <br>
+              <i>Note: You can save a pdf copy of your profile on your LinkedIn page under option tab "More..." 
+              to the right of your profile photo.</i>
+            <br>
+            <br>
+              LinkedIn URL (beta): <input type="url" name="linkedin_url">
+            <br>
+            <br>
+              You can view your profile information before submitting on the next page.
+            <br>
+            <br>
+            <input type="submit" class="w3-large btn btn-primary btn-lg" value="NEXT">
+          </form>
+        </p>
+      </div>
+      
+    </div>
+  </body>
+</html>

@@ -1,31 +1,24 @@
 <html>
   <head>
-    <title>MBA Finder</title>
-    <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Discover MBA</title>
+    <link rel="stylesheet" media="screen" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">MBA FINDER</h1>
-        <p>
-          Current time: {{time_info}}
+    <div class="w3-display-container w3-content w3-wide" style="max-width:1500px;">
+      <div style="background-color: black">
+        <img class="w3-image" style="opacity: 0.8" src="./static/architect_background.jpg" 
+          alt="Architecture" width="1500" height="800">
+      </div>
+      <div class="w3-display-middle w3-margin-bottom w3-center">
+        <h1 class="w3-jumbo w3-text-white"><span class="w3-hide-small w3-text-black">DISCOVER</span>
+          <span class="w3-padding w3-black w3-opacity-min"><b>MBA</b></span></h1>
+        <h2 class="w3-text-white w3-xxlarge">A Business School <br> Recommendation Engine</h2>
+        <p class="w3-text-white w3-large">
+          Date <br> {{date_info}}
         </p>
         <p>
-          Thinking aboout applying to business schools? 
-          Upload your Linkedin profile and get recommendations!
-        </p>
-        <p>
-          <form action="/review" method="post" enctype = "multipart/form-data">
-             Upload Linkedin Profile (PDF) <input type="file" name="linkedin_pdf">
-            <br>
-            <br>
-            LinkedIn URL:(Work in Progress) <input type="url" name="linkedin_url">
-            <br>
-            <br>
-            You can view your profile information before submitting on the next page.
-            <br>
-            <br>
-            <input type="submit" class="btn btn-primary btn-lg" value="NEXT">
+          <form class="w3-large w3-text-black" action="/upload" method="post" >
+            <input type="submit" class="btn btn-primary btn-lg" value="CLICK HERE TO DISCOVER YOUR MBA">
           </form>
         </p>
       </div>
