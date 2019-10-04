@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from time import strftime
 import time
 import os
@@ -14,9 +14,13 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 @app.route("/")
 def index():
     """Return the main page."""
-    time_str = strftime("%m/%d/%Y %H:%M")
-    print(time_str)
-    return render_template("index.html", time_info=time_str)
+    date_str = strftime("%B %d, %Y")
+    print(date_str)
+    return render_template("index.html", date_info=date_str)
+
+@app.route("/upload", methods=["POST"])
+def upload_profile():
+    return render_template("upload.html")
 
 def upload_file():
     """Upload file into designated directory. Returns path to saved file"""
@@ -27,30 +31,53 @@ def upload_file():
 
     return filepath
 
-def profile_reader(filepath):
-    """parse pdf for content, returns text in education and experience sections"""
+def read_profile_pdf(filepath):
+    """Parse profile pdf for content, returns text in education and experience sections"""
     from python.PDF_Reader import parse_pdf
 
     return parse_pdf(filepath)
 
+def read_profile_link(prof_link):
+    from python.profile_info_retrieval import retrieve_profile_info_by_link
+
+    return retrieve_profile_info_by_link(prof_link)
+
 @app.route("/review", methods=["POST"])
 def review_profile():
     """Profile information review page"""
-    #data = request.form
+    data = request.form
+    #file = request.files
     #print(data)
-    if "linkedin_pdf" in request.files:
+    #print(request.files)
+    if "linkedin_pdf" in request.files and request.files["linkedin_pdf"].filename != "":
         filepath = upload_file()
-        edu_hist, exp_hist = profile_reader(filepath)
+        edu_hist, exp_hist = read_profile_pdf(filepath)
+    elif "linkedin_url" in data and data["linkedin_url"] != "":
+        edu_hist, exp_hist = read_profile_link(data["linkedin_url"])
     else:
-        edu_hist = "enter information"
-        exp_hist = "enter information"
+        edu_hist, exp_hist = "Please enter information", "Please enter information"
     
     return render_template("review.html", edu_hist=edu_hist, exp_hist=exp_hist)
 
 def make_recommendation(education, experience):
-    from python.MBA_Finder import recommend_business_school
+    from python.Core_Engine import recommend_business_school
 
     return recommend_business_school(education, experience)
+
+@app.route("/make_recs", methods=["POST"])
+def process_inputs():
+    data = request.get_json()
+    edu_hist = data["edu_hist"]
+    exp_hist = data["exp_hist"]
+   
+    recs = make_recommendation(edu_hist, exp_hist)
+    
+    #dummy recs for page testing
+    #recs = ['Stanford', 'Northwestern Kellogg', 'Chicago Booth', 'Cambridge Judge', 'LBS',
+    #       'Harvard', 'Yale', 'INSEAD']
+    #time.sleep(2)
+
+    return jsonify({"recs":recs})
 
 @app.route("/results", methods=["POST"])
 def results():
@@ -58,8 +85,10 @@ def results():
    edu_hist = data["edu_hist"]
    exp_hist = data["exp_hist"]
    
-   recs = make_recommendation(edu_hist, exp_hist)
+   #recs = make_recommendation(edu_hist, exp_hist)
+
+   #dummy result list for testing pages
    #recs = ['Stanford', 'Northwestern Kellogg', 'Chicago Booth', 'Cambridge Judge', 'LBS',
    #        'Harvard', 'Yale', 'INSEAD']
 
-   return render_template("results.html", reccos=recs)
+   return render_template("results.html", edu_hist=edu_hist, exp_hist=exp_hist)
