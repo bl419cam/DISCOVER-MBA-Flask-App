@@ -4,6 +4,7 @@ import time
 import os
 import urllib.request
 from werkzeug.utils import secure_filename
+from waitress import serve
 
 upload_folder = '/Users/BPL/Data_Science_Flatiron/capstone-flask-app-template-seattle-ds-062419/python/profile_uploads'
 
@@ -89,3 +90,6 @@ def results():
    #recs = make_recommendation(edu_hist, exp_hist)
 
    return render_template("results.html", edu_hist=edu_hist, exp_hist=exp_hist)
+
+if __name__ == "__main__":
+    serve(app, host="0.0.0.0", port=5000)
