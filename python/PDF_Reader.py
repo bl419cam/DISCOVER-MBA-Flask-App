@@ -4,40 +4,39 @@ import numpy as np
 import string
 import pickle
 
-import nltk
-from nltk.corpus import stopwords
-from nltk import word_tokenize
-
-fillers = ['page', 'years', 'months', 'year', 'month', 'january', 'february', 'march', 'april', 'june', 'july', 
-           'august', 'september', 'october', 'november', 'december']
-
 def parse_pdf(file_path):
     
     with open(file_path,'rb') as file:
         extracted_text = slate.PDF(file)
         
-    tokens = []
+    lines = []
     for page in extracted_text:
-        tokens += word_tokenize(page)
-        
-    clean_tokens = [tok for tok in tokens if tok.lower() not in fillers]
+        lines += page.split('\n')
     
     index = 0
-    exp_section = []
-    edu_section = []
-    for tok in clean_tokens:
-        if tok == 'Experience':
+    for line in lines:
+        if line == 'Experience':
             exp_start = index
-        elif tok == 'Education':
+        elif line == 'Education':
             exp_end = index
             edu_start = index+1
-        
         index += 1
         
-    exp_section = clean_tokens[exp_start:exp_end]
-    edu_section = clean_tokens[edu_start:]
+    exp_raw = lines[exp_start+1:exp_end]
+    edu_raw = lines[edu_start:]
+        
+    exp_section = []
+    for line in exp_raw:
+        if '\xa0' not in line and '\x0c' not in line and 'Page' not in line:
+            exp_section.append(line)
     
-    edu_corpus = ' '.join(edu_section)
-    exp_corpus = ' '.join(exp_section)
+    exp_corpus = '\n'.join(exp_section)
+        
+    edu_section = []
+    for line in edu_raw:
+        if len(line) > 0 and 'Page' not in line:
+            edu_section.append(line)    
+    
+    edu_corpus = '\n'.join(edu_section)
     
     return edu_corpus, exp_corpus
