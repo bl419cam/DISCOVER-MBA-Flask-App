@@ -6,7 +6,7 @@ import urllib.request
 from werkzeug.utils import secure_filename
 from waitress import serve
 
-upload_folder = '/Users/BPL/Data_Science_Flatiron/capstone-flask-app-template-seattle-ds-062419/python/profile_uploads'
+upload_folder = './python/profile_uploads/'
 
 app = Flask(__name__, static_url_path="/static")
 app.config['UPLOAD_FOLDER'] = upload_folder
