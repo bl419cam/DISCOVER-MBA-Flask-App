@@ -37,10 +37,11 @@ def read_profile_pdf(filepath):
 
     return parse_pdf(filepath)
 
-def read_profile_link(prof_link):
-    from python.profile_info_retrieval import retrieve_profile_info_by_link
-
-    return retrieve_profile_info_by_link(prof_link)
+#comment out read link feature
+#def read_profile_link(prof_link):
+#    from python.profile_info_retrieval import retrieve_profile_info_by_link
+#
+#    return retrieve_profile_info_by_link(prof_link)
 
 @app.route("/review", methods=["POST"])
 def review_profile():
@@ -52,8 +53,8 @@ def review_profile():
     if "linkedin_pdf" in request.files and request.files["linkedin_pdf"].filename != "":
         filepath = upload_file()
         edu_hist, exp_hist = read_profile_pdf(filepath)
-    elif "linkedin_url" in data and data["linkedin_url"] != "":
-        edu_hist, exp_hist = read_profile_link(data["linkedin_url"])
+    #elif "linkedin_url" in data and data["linkedin_url"] != "":
+    #    edu_hist, exp_hist = read_profile_link(data["linkedin_url"])
     else:
         edu_hist, exp_hist = "Please enter information", "Please enter information"
     
@@ -86,9 +87,5 @@ def results():
    exp_hist = data["exp_hist"]
    
    #recs = make_recommendation(edu_hist, exp_hist)
-
-   #dummy result list for testing pages
-   #recs = ['Stanford', 'Northwestern Kellogg', 'Chicago Booth', 'Cambridge Judge', 'LBS',
-   #        'Harvard', 'Yale', 'INSEAD']
 
    return render_template("results.html", edu_hist=edu_hist, exp_hist=exp_hist)
