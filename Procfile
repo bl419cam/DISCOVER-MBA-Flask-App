@@ -1,1 +1,2 @@
-web: waitress-serve --port=$PORT --channel-timeout=300 app:app
+web: waitress-serve --port=$PORT app:app
+worker: python worker.py
