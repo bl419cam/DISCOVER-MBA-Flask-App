@@ -34,9 +34,9 @@
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        function pushData(){
             console.log(`{{edu_hist}}`)
-            fetch("/make_recs", {
+            return fetch("/make_recs", {
                 method: "Post",
                 headers: {
                     "Content-Type": "application/json"
@@ -47,20 +47,67 @@
                     })
                 })
             .then(resp => resp.json())
+        }
+        function hideLoadingGif(){
+            const load_gif = document.getElementById("load_results")
+            load_gif.remove()
+        }
+        function displayResults(json){
+            console.log(json["recs"])
+            const recList = document.getElementById("rec_list")
+
+            for (const rec of json["recs"]){
+                const list_item = document.createElement("li");
+                list_item.innerText = rec;
+                list_item.style["list-style"]="none"
+                list_item.style["margin-bottom"] = "6px"
+                recList.appendChild(list_item)
+            }
+        }
+        function poll(fn, callback, errback, timeout, interval){
+            const endTime = Number(new Date()) + (timeout || 1000000);
+            interval = interval || 10000;
+
+            (function p(){
+                fn().then(result => {
+                    if(result["status"]==="completed"){
+                        console.log(result["status"])
+                        callback(result);
+                    }
+                    else if (Number(new Date()) < endTime){
+                        console.log(result["status"])
+                        setTimeout(p, interval);
+                    }
+                    else {
+                        console.log("timeout")
+                        errback(new Error("timed out for " + fn));
+                    }
+                })
+            })();
+        }
+        function queryId(task_id){
+            return fetch("/make_recs?task="+task_id, {
+                method: "GET",
+                })
+            .then(resp => resp.json())
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            pushData()
             .then(json => {
-                const load_gif = document.getElementById("load_results")
-                load_gif.remove()
-
-                console.log(json["recs"])
-                const recList = document.getElementById("rec_list")
-
-                for (const rec of json["recs"]){
-                    const list_item = document.createElement("li");
-                    list_item.innerText = rec;
-                    list_item.style["list-style"]="none"
-                    list_item.style["margin-bottom"] = "6px"
-                    recList.appendChild(list_item)
-                }
+                console.log(json)
+                task_id = json["id"]
+                poll(
+                    function(){
+                        return queryId(task_id)
+                    },
+                    function(result){
+                        hideLoadingGif()
+                        displayResults(result)
+                    },
+                    function(){
+                        alert("no dice")
+                    }
+                )
             })
         })
     </script>
