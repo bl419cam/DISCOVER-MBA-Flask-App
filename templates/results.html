@@ -65,8 +65,8 @@
             }
         }
         function poll(fn, callback, errback, timeout, interval){
-            const endTime = Number(new Date()) + (timeout || 36000000);
-            interval = interval || 600000;
+            const endTime = Number(new Date()) + (timeout || 300000);
+            interval = interval || 1000;
 
             (function p(){
                 fn().then(result => {
