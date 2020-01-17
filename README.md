@@ -5,5 +5,8 @@ Prospective applicants can upload their LinkedIn profile in pdf format to the we
 
 Project is deployed on AWS at http://54.190.48.226:5000/
 
+## Raw Data Overview
+In order to utilize user-based collaborative filtering, a reference database of LinkedIn profiles of users who have completed/attending full-time MBA programs is needed.  I was able to get a dataset of approximately 3 million LinkedIn profiles from Kaggle (no longer available).  Profiles are stored in a single large JSON file at ~10GB.  Each single profile can be read as a nested dictionary containing fields such as Summary, Education, Experience, Skills, Interets, etc., but each profile may have only a subset of the fields.
+
 ## More details to follow
 
